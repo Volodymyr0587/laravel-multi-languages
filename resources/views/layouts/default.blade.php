@@ -35,21 +35,22 @@
                     </ul>
 
                     <ul class="navbar-nav mb-2 mb-lg-0 langs">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">en</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">ua</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">fr</a>
-                        </li>
+                        @foreach (App\Helpers\Langs::LOCALES as $locale)
+                            @if ($locale == app()->getLocale())
+                            <li class="nav-item">
+                                <a class="nav-link active">{{ $locale }}</a>
+                            </li>
+                            @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('setlang', $locale) }}">{{ $locale }}</a>
+                            </li>
+                            @endif
+                        @endforeach
+
                     </ul>
                 </div>
             </div>
         </nav>
-
-        @dump(app()->getLocale())
 
         @yield('content')
 
